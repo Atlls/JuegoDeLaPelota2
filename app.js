@@ -1,7 +1,7 @@
 /* VARIABLES */
 
 const ui = new CanvasInterface();
-const maxDiameterVec = 10;
+const maxDiameterVec = getProporcionalSize(ui.canvas.height + ui.canvas.width,.5);
 
 // Hacer una funcion a parte...
 const sizeProporcional = getProporcionalSize(ui.canvas.height + ui.canvas.width,1);
@@ -9,7 +9,7 @@ const sizeProporcional = getProporcionalSize(ui.canvas.height + ui.canvas.width,
 // Objetos del canvas
 const backgound   = new ObjectBox(ui.canvas.width,ui.canvas.height);
 const sqrBall     = new ObjectSquereBall(sizeProporcional);
-const specialZone = new ObjectSpecialZone(getProporcionalSize(ui.canvas.width,10),getProporcionalSize(ui.canvas.height,10),getProporcionalSize(ui.canvas.height + ui.canvas.width,.05));
+const specialZone = new ObjectSpecialZone(getProporcionalSize(ui.canvas.width,10),getProporcionalSize(ui.canvas.height,10));
 var detencionInterval;
 
 

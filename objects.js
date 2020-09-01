@@ -66,10 +66,10 @@ class ObjectSquereBall extends ObjectBox {
 
 class ObjectSpecialZone extends ObjectGerneric {
 
-	constructor (xLength,yLength,size) {
+	constructor (xLength,yLength) {
 		super()
 		this.xLength = xLength;
 		this.yLength = yLength;
-		this.size = size;
+		this.size = 1;
 	}
 }
