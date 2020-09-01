@@ -10,7 +10,7 @@ class ObjectGerneric {
 
 }
 
-// Objeto de juego: BOX
+// Objeto de juego: BOX 
 class ObjectBox extends ObjectGerneric {
 
 	constructor (width,height) {

@@ -1,4 +1,4 @@
-/* VARIABLES */
+/* VARIABLES */ 
 
 const ui = new CanvasInterface();
 const maxDiameterVec = getProporcionalSize(ui.canvas.height + ui.canvas.width,.5);
