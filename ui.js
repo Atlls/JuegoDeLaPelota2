@@ -39,5 +39,15 @@ class CanvasInterface {
 
 	}
 
+	drawCenterMsj (objectText) {
+
+		objectText.ctx.font = `${objectText.size}px Arial`;
+		objectText.ctx.textAlign = 'center';
+		objectText.ctx.fillStyle = objectText.color;
+
+		objectText.ctx.fillText(objectText.text, this.canvas.width/2, (this.canvas.height + objectText.size)/2);
+
+	}
+
 }
 

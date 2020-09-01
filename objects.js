@@ -31,6 +31,7 @@ class ObjectSquereBall extends ObjectBox {
 		super(squere,squere);
 		this.vectorX = 0;
 		this.vectorY = 0;
+		this.rebound = 0;
 
 	}
 
@@ -41,6 +42,7 @@ class ObjectSquereBall extends ObjectBox {
 
 	}
 
+	// Mejorar...
 	setRanVector (vectorDiameter) {
 
 		this.vectorX = getRanNumber(-vectorDiameter,vectorDiameter);
@@ -51,25 +53,29 @@ class ObjectSquereBall extends ObjectBox {
 
 	}
 
-	// Mejorar... Se repite código.
-	setProxVector () {
-
-		if (this.posX + this.vectorX > ui.canvas.width || this.posX + this.vectorX < 0)
-			this.vectorX *= -1;
-		else if (this.posY + this.vectorY > ui.canvas.height || this.posY + this.vectorY < 0)
-			this.vectorY *= -1;
-
-	}
-
-	crashing = () => this.posX + this.vectorX > ui.canvas.width || this.posX + this.vectorX < 0 || this.posY + this.vectorY > ui.canvas.height || this.posY + this.vectorY < 0;
 }
 
+// Objeto de juego: ZONA DE REBOTE ALEATORIO
 class ObjectSpecialZone extends ObjectGerneric {
 
 	constructor (xLength,yLength) {
 		super()
 		this.xLength = xLength;
 		this.yLength = yLength;
-		this.size = 1;
+		this.size = 4;
 	}
+}
+
+// Objeto de juego: TEXTO BASICO
+class ObjectText extends ObjectGerneric {
+	
+	constructor (text = 'None', size = 30) {
+
+		super()
+		this.text = text;
+		this.size = size;
+		this.color = 'red';
+
+	}
+
 }
