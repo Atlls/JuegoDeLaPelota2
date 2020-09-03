@@ -6,8 +6,8 @@ const maxDiameterVec = getProporcionalSize(ui.canvas.height + ui.canvas.width,.5
 // Objetos del canvas
 const backgound   = new ObjectBox(ui.canvas.width,ui.canvas.height);
 const sqrBall     = new ObjectSquereBall(getProporcionalSize(ui.canvas.height + ui.canvas.width,1),maxDiameterVec);
-const specialZone = new ObjectSpecialZone(getProporcionalSize(ui.canvas.width,10),getProporcionalSize(ui.canvas.height,10));
-const textOut	  = new ObjectText('Preciona la pantalla, ¡A jugar!', getProporcionalSize(ui.canvas.height + ui.canvas.width,1.2));
+const specialZone = new ObjectSpecialZone(getProporcionalSize(ui.canvas.width,13),getProporcionalSize(ui.canvas.height,13));
+const textOut	  = new ObjectText('Preciona la pantalla, ¡A jugar!', getProporcionalSize(ui.canvas.width,2.5));
 var detencionInterval;
 
 
