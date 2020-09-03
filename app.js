@@ -5,30 +5,15 @@ const maxDiameterVec = getProporcionalSize(ui.canvas.height + ui.canvas.width,.5
 
 // Objetos del canvas
 const backgound   = new ObjectBox(ui.canvas.width,ui.canvas.height);
-const sqrBall     = new ObjectSquereBall(getProporcionalSize(ui.canvas.height + ui.canvas.width,1));
+const sqrBall     = new ObjectSquereBall(getProporcionalSize(ui.canvas.height + ui.canvas.width,1),maxDiameterVec);
 const specialZone = new ObjectSpecialZone(getProporcionalSize(ui.canvas.width,10),getProporcionalSize(ui.canvas.height,10));
-const textOut		  = new ObjectText('Juego de la bolita', getProporcionalSize(ui.canvas.height + ui.canvas.width,1.5));
+const textOut	  = new ObjectText('Preciona la pantalla, ¡A jugar!', getProporcionalSize(ui.canvas.height + ui.canvas.width,1.2));
 var detencionInterval;
 
 
 /* EVENT'S LISTENERS */
 
-document.addEventListener('DOMContentLoaded', launch);
-ui.canvas.addEventListener('click', () => ui.gameStop = true );
-
-function launch () {
-
-	/* --- Inicializar --- */
-
-	// Inicializar Variables...
-	backgound.color = 'black';
-
-	sqrBall.color = 'orange';
-	sqrBall.posX = Math.floor(ui.canvas.width / 2);
-	sqrBall.posY = Math.floor(ui.canvas.height / 2);
-	sqrBall.setRanVector(maxDiameterVec);
-
-	specialZone.color = 'red';
+document.addEventListener('DOMContentLoaded', () => {
 
 	// Mostrar inicio de juego...
 	ui.drawCenterMsj(textOut);
@@ -36,64 +21,86 @@ function launch () {
 	textOut.size = getProporcionalSize(ui.canvas.height + ui.canvas.width,3);
 	textOut.text = `${sqrBall.rebound}`;
 
-	/* --- Renderizar --- */
+});
 
-	detencionInterval = setInterval( render , 10 );
-}
+document.addEventListener('click', () => {
+
+	if(!ui.gameRunning){
+		/* Ejecutar el juego con la bolita */
+		detencionInterval = setInterval( render , 10 );
+		ui.gameRunning = true;
+	}else{
+		/* Pausar juego */
+		clearInterval(detencionInterval);
+		ui.gameRunning = false;
+	}
+	
+
+});
 
 function render () {
+
+	/* Dibujar los elementos */
 
 	ui.drawBox(backgound);
 	ui.drawCenterMsj(textOut);
 	ui.drawBall(sqrBall);
 	ui.drawSpecialZone(specialZone);
 
-	// Documentar esto... Y ver si se puede mejorar este condicional para no repetir código...
-	if(sqrBall.posX + sqrBall.vectorX > ui.canvas.width || sqrBall.posX + sqrBall.vectorX < 0) {
 
-	//	console.log('choca Y');
+
+	/* Condicional de choque */ // Se repite código, pero no es muy grave...
+
+	// Choca en Y
+	if(sqrBall.posX + sqrBall.vectorX > ui.canvas.width || sqrBall.posX + sqrBall.vectorX < 0) {
 		
 		sqrBall.vectorX *= -1;
 
+		// Choca en la Zona Especial en Y
 		if (sqrBall.posY + sqrBall.vectorY > (ui.canvas.height - specialZone.yLength)/2 && sqrBall.posY + sqrBall.vectorY < (ui.canvas.height - specialZone.yLength)/2 + specialZone.yLength) {
 
-			// console.log('Cambio Aleatorio en X');
+			// Reasignacion aleatorio de vectores
 			sqrBall.vectorX = sqrBall.vectorX/Math.abs(sqrBall.vectorX) * getRanNumber(1,maxDiameterVec);
 			sqrBall.vectorY = getRanNumber(-maxDiameterVec,maxDiameterVec);
+
+			// Aumento de puntuaje
+			sqrBall.rebound++;
+			textOut.text = `${sqrBall.rebound}`;
 			
-
 		}
-
-		sqrBall.rebound++;
-		textOut.text = `${sqrBall.rebound}`;
 		
+	// Choca en X
 	} else if (sqrBall.posY + sqrBall.vectorY > ui.canvas.height || sqrBall.posY + sqrBall.vectorY < 0) {
-
-	//	console.log('choca X');
 		
 		sqrBall.vectorY *= -1;
+
+		// Choca en la Zona Especial en X
 		if (sqrBall.posX + sqrBall.vectorX > (ui.canvas.width - specialZone.xLength)/2 && sqrBall.posX + sqrBall.vectorX < (ui.canvas.width - specialZone.xLength)/2 + specialZone.xLength) {
 
-			// console.log('Cambio Aleatorio en Y');
+			// Reasignacion aleatorio de vectores
 			sqrBall.vectorY = sqrBall.vectorY/Math.abs(sqrBall.vectorY) * getRanNumber(1,maxDiameterVec);
 			sqrBall.vectorX = getRanNumber(-maxDiameterVec,maxDiameterVec);
 
+			// Aumento de puntuaje
+			sqrBall.rebound++;
+			textOut.text = `${sqrBall.rebound}`;
 
 		}
 
-		sqrBall.rebound++;
-		textOut.text = `${sqrBall.rebound}`;
 	}
-	
-	sqrBall.moveBall();
 
-	if(ui.gameStop)
-		clearInterval(detencionInterval);
+
+	
+	/* Mover pelota */
+
+	sqrBall.moveBall();		
 
 }
 
 /* FUNCIONES */
 
+// Retorna un numero aleatorio entre dos parametros
 function getRanNumber (min,max) { return Math.floor(Math.random()*((max+1)-min)+min); }
 
+// Retorna el porsentaje de un número
 function getProporcionalSize (number,porcentage) { return Math.floor((number) * porcentage/100 * 2); }

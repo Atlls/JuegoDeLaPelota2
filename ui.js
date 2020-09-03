@@ -1,15 +1,17 @@
 class CanvasInterface {
 
 	constructor () {
-		this.canvas = document.getElementById('canvas'); // Si pones *canvas* funciona igual :O
+		this.canvas = document.getElementById('canvas'); // (Si pones *canvas* funciona igual :O)
 
 		// Ajustar a las proporciones de la pantalla
 		this.canvas.width = window.innerWidth;
 		this.canvas.height = window.innerHeight;
 
 		this.gameStop = false;
+		this.gameRunning = false;
 	}
 
+	// Dibuja una caja en el canvas.
 	drawBox (objectBox) {
 
 		objectBox.ctx.fillStyle = objectBox.color;
@@ -17,6 +19,7 @@ class CanvasInterface {
 
 	}
 
+	// Dibuja la POLOTA CUADRADA de forma centrada.
 	drawBall (objectBall) {
 
 		objectBall.ctx.fillStyle = objectBall.color;
@@ -24,6 +27,7 @@ class CanvasInterface {
 
 	}
 
+	// Dibuja la zona especial en sentido antihorario.
 	drawSpecialZone (objectSpecialZone) {
 
 		objectSpecialZone.ctx.fillStyle = objectSpecialZone.color;
@@ -39,9 +43,10 @@ class CanvasInterface {
 
 	}
 
+	// Dibuja un un texto en el centro de la pantalla.
 	drawCenterMsj (objectText) {
 
-		objectText.ctx.font = `${objectText.size}px Arial`;
+		objectText.ctx.font = `${objectText.size}px Consolas`;
 		objectText.ctx.textAlign = 'center';
 		objectText.ctx.fillStyle = objectText.color;
 
@@ -50,4 +55,3 @@ class CanvasInterface {
 	}
 
 }
-
