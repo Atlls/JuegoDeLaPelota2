@@ -31,11 +31,11 @@ class ObjectBox extends ObjectGerneric {
 // Objeto de juego: PELOTA CUADRADA
 class ObjectSquereBall extends ObjectBox {
 
-	constructor (base,vectorDiameter) {
+	constructor (base) {
 		
 		super(base,base);
 		this.color = '#dd2c00';
-		this.vectorDiameter = vectorDiameter;
+		this.vectorDiameter = getProporcionalSize(ui.canvas.height + ui.canvas.width,.7);
 		
 		// Posicionar a la mitad
 		this.posX = Math.floor(ui.canvas.width / 2);
@@ -52,11 +52,10 @@ class ObjectSquereBall extends ObjectBox {
 
 		this.vectorX = getRanNumber(-this.vectorDiameter,this.vectorDiameter);
 		this.vectorY = getRanNumber(-this.vectorDiameter,this.vectorDiameter);
-		console.log(this.vectorDiameter);
 
 		// Validar que no el vector no sea '(0,0)'
 		if(this.vectorX == 0 || this.vectorY == 0)
-			this.setRanVector(this.vectorDiameter);
+			this.init(this.vectorDiameter);
 
 	}
 
@@ -86,9 +85,14 @@ class ObjectSpecialZone extends ObjectGerneric {
 // Objeto de juego: TEXTO BASICO
 class ObjectText extends ObjectGerneric {
 	
-	constructor (text = 'None', size = 30) {
+	constructor (size = 30, text = 'None text here') {
 
 		super()
+		
+		// Posicionar a la mitad
+		this.posX = Math.floor(ui.canvas.width / 2);
+		this.posY = ui.canvas.height;
+		
 		this.color = '#304ffe';
 		this.text = text;
 		this.size = size;

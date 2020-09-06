@@ -7,9 +7,14 @@ class CanvasInterface {
 		this.canvas.width = window.innerWidth;
 		this.canvas.height = window.innerHeight;
 
-		this.gameStop = false;
+		this.gameOver = false;
 		this.gameRunning = false;
+
+		this.time = 0;
+
 	}
+
+	/* Funciones de dibujo */
 
 	// Dibuja una caja en el canvas.
 	drawBox (objectBox) {
@@ -43,14 +48,38 @@ class CanvasInterface {
 
 	}
 
-	// Dibuja un un texto en el centro de la pantalla.
-	drawCenterMsj (objectText) {
+	// Dibuja un un texto en el centro de la pantalla, por defecto es en el centro.
+	drawMsj (objectText) {
 
 		objectText.ctx.font = `${objectText.size}px Consolas`;
 		objectText.ctx.textAlign = 'center';
 		objectText.ctx.fillStyle = objectText.color;
+		objectText.ctx.fillText(objectText.text, objectText.posX, (objectText.posY + objectText.size)/2);
 
-		objectText.ctx.fillText(objectText.text, this.canvas.width/2, (this.canvas.height + objectText.size)/2);
+	}
+
+	/* Funciones de juego */
+
+	validateFinish (points,detectionInterval) {
+
+		if (points == 10) {
+
+			// Formalizar tiempo jugado.
+			this.time = (new Date().getTime() - this.time)/1000;
+
+			// Detener el renderizado.
+			this.gameOver = true;
+			clearInterval(detectionInterval);
+
+			// Definir texto de Game Over.
+			const textOver = new ObjectText(getProporcionalSize(ui.canvas.width,2.5),`Tiempo tardado: ¡${this.time} Segundos!`);
+			textOver.posY += getProporcionalSize(ui.canvas.height,15);
+
+			// Dibujar texto.
+			this.drawMsj(textOver);
+
+		}
+
 
 	}
 
