@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Dibujar inicio del juego...
 	textOut.text = '¡Deja que llegue a 10 Rebotes!';
 	ui.drawMsj(textOut);
-	textOut.text = 'Preciona la pantalla';
+	textOut.text = 'Presiona la pantalla';
 	textOut.posY -= getProporcionalSize(ui.canvas.width,5);
 	ui.drawMsj(textOut);
 	textOut.text = 'Debe chocar en la ZONA AZUL';
